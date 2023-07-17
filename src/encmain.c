@@ -61,6 +61,9 @@
 #include "threads.h"
 #include "yuv_io.h"
 
+#include <sys/time.h>
+struct timeval t;
+
 /**
  * \brief Open a file for reading.
  *
@@ -589,6 +592,8 @@ int main(int argc, char *argv[])
     }
     kvz_picture *cur_in_img;
     for (;;) {
+      gettimeofday(&t, NULL);
+      printf("will encode %d: %lu\n", frames_done + 1, t.tv_usec);
 
       // Skip mutex locking if the input thread does not exist.
       if (in_args.retval == RETVAL_RUNNING) {
@@ -727,6 +732,9 @@ int main(int argc, char *argv[])
       api->chunk_free(chunks_out);
       api->picture_free(img_rec);
       api->picture_free(img_src);
+
+      gettimeofday(&t, NULL);
+      printf("did encode %d: %lu\n", frames_done, t.tv_usec);
     }
 
     KVZ_GET_TIME(&encoding_end_real_time);
