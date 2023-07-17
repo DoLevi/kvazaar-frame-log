@@ -593,7 +593,7 @@ int main(int argc, char *argv[])
     kvz_picture *cur_in_img;
     for (;;) {
       gettimeofday(&t, NULL);
-      printf("will encode %d: %lu\n", frames_done + 1, t.tv_usec);
+      printf("encoding %d: %ld.%ld\n", frames_done + 1, t.tv_sec, t.tv_usec);
 
       // Skip mutex locking if the input thread does not exist.
       if (in_args.retval == RETVAL_RUNNING) {
@@ -734,7 +734,7 @@ int main(int argc, char *argv[])
       api->picture_free(img_src);
 
       gettimeofday(&t, NULL);
-      printf("did encode %d: %lu\n", frames_done, t.tv_usec);
+      printf("encoded %d: %ld.%ld\n", frames_done, t.tv_sec, t.tv_usec);
     }
 
     KVZ_GET_TIME(&encoding_end_real_time);
