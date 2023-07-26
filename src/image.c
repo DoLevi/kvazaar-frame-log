@@ -39,6 +39,7 @@
 #include "strategies/strategies-ipol.h"
 #include "strategies/strategies-picture.h"
 #include "threads.h"
+#include "emscripten.h"
 
 /**
 * \brief Allocate a new image with 420.
@@ -170,8 +171,8 @@ kvz_picture *kvz_image_make_subimage(kvz_picture *const orig_image,
   assert((x_offset % 2) == 0);
   assert((y_offset % 2) == 0);
 
-  fprintf(stderr, "x_offset: %u + width: %u <= %u", x_offset, width, orig_image->width);
-  fprintf(stderr, "y_offset: %u + height: %u <= %u", y_offset, height, orig_image->height);
+  EM_ASM({console.log(`x_offset: ${$0} + width: ${$1} <= ${$2}`);}, x_offset, width, orig_image->width);
+  EM_ASM({console.log(`y_offset: ${$0} + height: ${$1} <= ${$2}`);}, y_offset, height, orig_image->height);
   assert(x_offset + width <= orig_image->width);
   assert(y_offset + height <= orig_image->height);
 
