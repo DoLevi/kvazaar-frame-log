@@ -34,6 +34,7 @@
 
 #include <limits.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "strategies/strategies-ipol.h"
 #include "strategies/strategies-picture.h"
@@ -169,6 +170,8 @@ kvz_picture *kvz_image_make_subimage(kvz_picture *const orig_image,
   assert((x_offset % 2) == 0);
   assert((y_offset % 2) == 0);
 
+  fprintf(stdout, "x_offset: %u + width: %u <= %u", x_offset, width, orig_image->width);
+  fprintf(stdout, "y_offset: %u + height: %u <= %u", y_offset, height, orig_image->height);
   assert(x_offset + width <= orig_image->width);
   assert(y_offset + height <= orig_image->height);
 
